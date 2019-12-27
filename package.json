@@ -1,0 +1,28 @@
+{
+  "name": "codeceptjs-remote-maildev",
+  "version": "0.0.1",
+  "description": "Maildev instance for CodeceptJS Maildev helper",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kuzjka/codeceptjs-remote-maildev.git"
+  },
+  "keywords": [
+    "codeceptjs",
+    "maildev",
+    "e2e"
+  ],
+  "author": "Ihor Kuzmanenko",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kuzjka/codeceptjs-remote-maildev/issues"
+  },
+  "homepage": "https://github.com/kuzjka/codeceptjs-remote-maildev#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "maildev": "^1.1.0"
+  }
+}
