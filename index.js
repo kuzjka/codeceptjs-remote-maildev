@@ -54,7 +54,7 @@ app.listen(webPort, () => {
 function _startMaildev() {
     maildev = new MailDev({
         smtp: smtpPort,
-        ip: '127.0.0.1',
+        ip: '0.0.0.0',
         disableWeb: true
     });
 
