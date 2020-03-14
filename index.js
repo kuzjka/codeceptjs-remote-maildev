@@ -15,30 +15,36 @@ app.post('/haveMailbox', (req, res) => {
     if (!maildev) {
         _startMaildev();
     }
-    console.log(req.body);
-    // this.address.push(req.body);
+    console.log(req.body.address);
+    addresses.push(req.body.address);
     res.send("OK");
 });
 
 app.get('/grabNextUnreadEmail', (req, res) => {
     if (read >= emails.length) res.json({empty: true});
     else res.json({empty: false, email: emails[read++]});
+    console.debug('Email grabbed');
 });
 
-app.post('/reset', () => {
+app.post('/reset', (req, res) => {
     if (maildev) {
         maildev.close((err) => {
             if (err) {
                 console.error('Can\'t stop MailDev ' + err);
+                res.status(500);
+                res.send('Can\'t stop maildev');
             } else {
                 console.debug('Maildev stopped');
+                res.send("OK");
             }
         });
         maildev = null;
-        emails = [];
-        read = 0;
-        addresses = [];
+    } else {
+        res.send("Maildev not running");
     }
+    emails = [];
+    read = 0;
+    addresses = [];
 });
 
 app.listen(webPort, () => {
@@ -53,11 +59,11 @@ function _startMaildev() {
     });
 
     maildev.listen((err) => {
-        if (err) console.error("Maildev cannot listen on " + port + ": " + err);
-        else console.debug("Maildev is listening on " + port);
+        if (err) console.error("Maildev cannot listen on " + smtpPort + ": " + err);
+        else console.debug("Maildev is listening on " + smtpPort);
     });
 
-    this.maildev.on('new', (email) => {
+    maildev.on('new', (email) => {
         console.debug('Recipients: ' + email.to.map(t => t.address).join(', '));
         if (_checkAddress(email)) {
             console.log('Got new email: ' + email.subject);
