@@ -15,7 +15,7 @@ app.post('/haveMailbox', (req, res) => {
     if (!maildev) {
         _startMaildev();
     }
-    console.log(req.body.address);
+    console.log("Requested mailbox: " + req.body.address);
     addresses.push(req.body.address);
     res.send("OK");
 });
@@ -45,6 +45,7 @@ app.post('/reset', (req, res) => {
     emails = [];
     read = 0;
     addresses = [];
+    console.log("State reset");
 });
 
 app.listen(webPort, () => {
